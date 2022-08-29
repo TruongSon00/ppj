@@ -1,0 +1,49 @@
+# docker compose version
+version: '3.8'
+# all the containers have to declare inside services
+services:
+  mms-service:
+    container_name: ${CONTAINER_NAME}
+    image: ${DOCKER_REGISTRY_HOST}/snp_smartwms/source/projects/ppj/services/mms-service:develop
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      mesx-net:
+        ipv4_address: ${CONTAINER_NETWORK_IP}
+    ports:
+      - ${APP_CONTAINER_PORT}:${SERVER_HTTP_PORT}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+  mongodb:
+    container_name: ${NODE_ENV}-mms-service-db
+    image: mongo
+    volumes:
+      # seeding scripts
+      - ./mongo-entrypoint:/docker-entrypoint-initdb.d
+      # named volumes
+      - mongodb:/data/db
+      - mongoconfig:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DATABASE_NAME}
+    ports:
+      - ${DATABASE_CONTAINER_PORT}:${DATABASE_PORT}
+    networks:
+      - mesx-net
+    restart: unless-stopped
+networks:
+  mesx-net:
+    name: ${MESX_NET_NAME}
+    external: true
+
+# save (persist) data
+volumes:
+  # default dir on Ubuntu: /var/lib/docker/volumes
+  mongodb: null
+  mongoconfig: null

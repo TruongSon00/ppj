@@ -1,0 +1,21 @@
+{
+  "ADD": "Create",
+  "UPDATE": "Update",
+  "NO": "Skip",
+  "DONE": "Complete",
+  "ACTION": "Action",
+
+  "code": "Code",
+  "name": "Name",
+  "companyName": "Company name",
+  "companyCode": "Company code",
+  "factoryName": "Factory name",
+  "factoryCode": "Factory code",
+  "description": "Description",
+  "address": "Address",
+  "location": "Location",
+  "phone": "Phone number",
+  "fax": "FAX",
+  "email": "Email",
+  "taxNo": "Tax code"
+}

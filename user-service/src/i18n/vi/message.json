@@ -1,0 +1,18 @@
+{
+  "success": "Thành công",
+  "defineCompany": {
+    "createSuccess": "Tạo thành công Công ty",
+    "updateSuccess": "Sửa thành công Công ty",
+    "deleteSuccess": "Xóa thành công Công ty"
+  },
+  "defineFactory": {
+    "createSuccess": "Tạo thành công Nhà máy",
+    "updateSuccess": "Sửa thành công Nhà máy",
+    "deleteSuccess": "Xóa thành công Nhà máy"
+  },
+  "defineUser": {
+    "createSuccess": "Tạo thành công Người dùng",
+    "updateSuccess": "Sửa thành công Người dùng",
+    "deleteSuccess": "Xóa thành công Người dùng"
+  }
+}

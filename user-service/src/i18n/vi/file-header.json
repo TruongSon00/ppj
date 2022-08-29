@@ -1,0 +1,24 @@
+{
+  "ADD":"Tạo",
+  "UPDATE":"Sửa",
+  "NO":"Bỏ qua",
+  "DONE":"Hoàn thành",
+  "ACTION":"Hành động",
+  
+  "code":"Mã",
+  "name":"Tên",
+  "companyName":"Tên công ty",
+  "companyCode": "Mã công ty",
+  "factoryName": "Tên nhà máy",
+  "factoryCode": "Mã nhà máy",
+  "description":"Mô tả",
+  "address": "Địa chỉ",
+  "location": "Địa chỉ",
+  "phone": "Số điện thoại",
+  "fax": "FAX",
+  "email": "Email",
+  "taxNo": "Mã thuế",
+  "bankAccount": "STK Ngân Hàng",
+  "bankAccountOwner": "Chủ tài khoản",
+  "bank": "Tên ngân hàng"
+}

@@ -1,0 +1,10 @@
+# docker compose version
+version: '3.7'
+
+services:
+  auth-service:
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:dev

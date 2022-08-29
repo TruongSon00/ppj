@@ -1,0 +1,21 @@
+consul:
+  host: ${{ CONSUL_HOST }}
+  port: ${{ CONSUL_PORT }}
+  defaults:
+    token: ${{CONSUL_TOKEN}}
+kong:
+  host: ${{ KONG_HOST }}
+  port: ${{ KONG_PORT }}
+  upstream:
+    name: ${{ SERVICE_NAME }}-upstream
+service:
+  name: ${{ SERVICE_NAME }}
+  port: ${{ SERVER_PORT }}
+  apiPath: ${{ API_PATH }}
+  tags: ["v1.0.1"]
+  healthCheck:
+    timeout: 1s
+    interval: 10s
+    route: /api/v1/sample-service/health
+  maxRetry: 5
+  retryInterval: 5000

@@ -1,0 +1,40 @@
+{
+  "common": {
+    "createdAt": "Ngày tạo",
+    "createdBy": "Người tạo",
+    "description": "Mô tả",
+    "email": "Email",
+    "phone": "Số điện thoại"
+  },
+  "company": {
+    "title": "Danh sách công ty",
+    "code": "Mã công ty",
+    "name": "Tên công ty",
+    "address": "Địa chỉ công ty",
+    "taxNo": "Mã số thuế",
+    "fax": "Fax"
+  },
+  "user": {
+    "title": "Quản lý người dùng",
+    "username": "Tên đăng nhập",
+    "fullname": "Họ tên",
+    "code": "Mã nhân viên",
+    "dateOfBirth": "Ngày sinh",
+    "departmentName": "Bộ phận",
+    "role": "Role",
+    "warehouse": {
+      "name": "Kho quản lý"
+    },
+    "status": "Trạng thái"
+  },
+  "factory": {
+    "title": "Danh sách nhà máy",
+    "code": "Mã nhà máy",
+    "name": "Tên nhà máy",
+    "company": "Tên công ty",
+    "location": "Vị trí nhà máy",
+    "companyName": "Tên công ty",
+    "regionName": "Tên vùng",
+    "interRegionName": "Tên liên vùng"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "device": {
+    "action": "Tạo",
+    "code": "C998",
+    "name": "Cảm biến A",
+    "description": "Cảm biến cho thiết bị",
+    "periodicInspectionTime": "10",
+    "frequency": "Tần suất",
+    "price": "6969",
+    "deviceGroupName": "Nhóm ABC",
+    "responsibleUser": "admin",
+    "responsibleMaintenanceTeam": " ",
+    "isForManufacturing": "Có",
+    "maintenanceAttributeName": "cái"
+  }
+}

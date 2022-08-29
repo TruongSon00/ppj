@@ -1,0 +1,37 @@
+{
+  "error": {
+    "acction": "Hành động phải là Tạo hoặc Sửa",
+    "maxLength": "\"{value}\" tối đa {number} ký tự",
+    "notNull": "\"{value}\" không được để trống",
+    "duplicateCode": "Giá trị mã \"{value}\" bị lặp trong file import",
+    "factoryWasConfirm": "Dữ liệu nhà máy mã \"{value}\" đã được xác nhận",
+    "notFound": "Dữ liệu \"{value}\" không tồn tại",
+    "codeExist": "Mã \"{value}\" đã tồn tại",
+    "codeNotExist": "Mã \"{value}\" không tồn tại"
+  },
+  "common": {
+    "action": "Hành động",
+    "createdAt": "Ngày tạo",
+    "createdBy": "Người tạo",
+    "description": "Mô tả",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "add": "Tạo",
+    "edit": "Sửa",
+    "success": "Thành công",
+    "fail": "Thất bại"
+  },
+  "sheetName": {
+    "factory": "Danh sách nhà máy"
+  },
+  "factory": {
+    "title": "Danh sách nhà máy",
+    "code": "Mã nhà máy",
+    "name": "Tên nhà máy",
+    "company": "Tên công ty",
+    "region": "Mã vùng",
+    "location": "Địa chỉ",
+    "result": "Kết quả",
+    "reason": "Lý do"
+  }
+}

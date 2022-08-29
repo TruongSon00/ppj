@@ -1,0 +1,142 @@
+{
+  "error": {
+    "acction": "Hành động phải là Tạo hoặc Sửa",
+    "maxLength": "\"{value}\" tối đa {number} ký tự",
+    "notNull": "\"{value}\" không được để trống",
+    "duplicateCode": "Giá trị mã \"{value}\" bị lặp trong file import",
+    "factoryWasConfirm": "Dữ liệu nhà máy mã \"{value}\" đã được xác nhận",
+    "notFound": "Dữ liệu \"{value}\" không tồn tại",
+    "codeExist": "Mã \"{value}\" đã tồn tại",
+    "codeNotExist": "Mã \"{value}\" không tồn tại"
+  },
+  "common": {
+    "action": "Hành động",
+    "createdAt": "Ngày tạo",
+    "createdBy": "Người tạo",
+    "description": "Mô tả",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "add": "Tạo",
+    "edit": "Sửa",
+    "success": "Thành công",
+    "fail": "Thất bại"
+  },
+  "deviceGroup": {
+    "title": " Danh sách nhóm thiết bị",
+    "code": "Mã nhóm thiết bị",
+    "name": "Tên nhóm thiết bị",
+    "description": "Mô tả nhóm thiết bị",
+    "assign": "Người chịu trách nhiệm"
+  },
+  "sheetName": {
+    "Sheet1": "Sheet1",
+    "Sheet2": "Sheet2"
+  },
+  "checkListTemplate": {
+    "code": "Mã mẫu phiếu",
+    "name": "Tên mẫu phiếu",
+    "deviceCode": "Mã thiết bị",
+    "description": "Mô tả",
+    "checkType": "Loại kiểm tra",
+    "detail": {
+      "title": "Tiêu đề",
+      "description": "Mô tả",
+      "obligatory": "Bắt buộc"
+    }
+  },
+  "obligatory": {
+    "no": "Không",
+    "yes": "Có"
+  },
+  "defects": {
+    "code": "Mã lỗi",
+    "name": "Tên lỗi",
+    "description": "Mô tả lỗi",
+    "deviceCode": "Mã thiết bị",
+    "priorityStr": "Độ ưu tiên"
+  },
+  "installationTemplate": {
+    "code": "Mã mẫu phiếu",
+    "name": "Tên mẫu phiếu",
+    "description": "Mô tả",
+    "detail": {
+      "title": "Tiêu đề",
+      "description": "Mô tả",
+      "obligatory": "Bắt buộc"
+    }
+  },
+  "maintenanceAttribute": {
+    "code": "Mã thuộc tính bảo trì",
+    "name": "Tên thuộc tính bảo trì",
+    "description": "Mô tả thuộc tính bảo trì"
+  },
+  "attributeType": {
+    "code": "Mã giá trị",
+    "name": "Tên giá trị",
+    "description": "Mô tả giá trị",
+    "unitCode": "Đơn vị"
+  },
+  "supplyGroup": {
+    "code": "Mã nhóm vật tư",
+    "name": "Tên nhóm vật tư",
+    "description": "Mô tả nhóm vật tư",
+    "assign": "Người chịu trách nhiệm"
+  },
+  "supply": {
+    "code": "Mã vật tư phụ tùng",
+    "name": "Tên vật tư phụ tùng",
+    "supplyGroupCode": "Tên vật tư",
+    "type": "Loại",
+    "unitCode": "Đơn vị tính",
+    "price": "Giá",
+    "description": "Mô tả về vật tư phụ tùng",
+    "assign": "Người chịu trách nhiệm"
+  },
+  "unit": {
+    "code": "Mã đơn vị tính",
+    "name": "Tên đơn vị tính",
+    "description": "Mô tả đơn vị tính"
+  },
+  "interRegion": {
+    "code": "Mã liên vùng",
+    "name": "Tên liên vùng",
+    "description": "Mô tả liên vùng"
+  },
+  "region": {
+    "code": "Mã vùng",
+    "name": "Tên vùng",
+    "description": "Mô tả vùng",
+    "interRegionCode": "Mã liên vùng"
+  },
+  "maintenanceTeam": {
+    "title": "Danh sách đội bảo trì",
+    "code": "Mã đội bảo trì",
+    "name": "Tên đội bảo trì",
+    "description": "Mô tả đôi bảo trì",
+    "type": "Loại đội bảo trì",
+    "member": "Thành viên",
+    "role": "Chức vụ"
+  },
+  "area": {
+    "code": "Mã khu vực",
+    "name": "Tên khu vực",
+    "description": "Mô tả khu vực",
+    "factoryCode": "Mã nhà máy"
+  },
+  "errorType": {
+    "code": "Mã loại lỗi",
+    "name": "Tên loại lỗi",
+    "description": "Mô tả loại lỗi",
+    "priority": "Mức ưu tiên của loại lỗi"
+  },
+  "vendor": {
+    "code": "Mã nhà cung cấp",
+    "name": "Tên nhà cung cấp",
+    "description": "Mô tả",
+    "address": "Địa chỉ",
+    "email": "Địa chỉ email",
+    "phone": "Số điện thoại",
+    "bank": "Số tài khoản ngân hàng",
+    "contactUser": "Người liên hệ"
+  }
+}

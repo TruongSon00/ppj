@@ -1,0 +1,9 @@
+# docker compose version
+version: '3.8'
+
+services:
+  mms-service:
+    build:
+      context: .
+      target: development
+    command: npm run start:dev

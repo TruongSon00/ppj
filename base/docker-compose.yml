@@ -1,0 +1,189 @@
+version: '3.8'
+
+services:
+  kong-database:
+    image: postgres:13-alpine
+    container_name: ${KONG_DB_CONTAINER_NAME}
+    # ports:
+    #   - 5832:5432
+    environment:
+      POSTGRES_USER: ${KONG_DB_USERNAME}
+      POSTGRES_DB: ${KONG_DB_NAME}
+      POSTGRES_PASSWORD: ${KONG_DB_PASSWORD}
+    restart: always
+    networks:
+      mesx-net:
+        ipv4_address: ${KONG_DB_DNS}
+    volumes:
+      - "db-data-kong-postgres:/var/lib/postgresql/data"
+
+  kong-migrations:
+    container_name: ${KONG_MIGRATIONS_CONTAINER_NAME}
+    image: kong:2.8.1-alpine
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: ${KONG_DB_DNS}
+      KONG_PG_PASSWORD: ${KONG_DB_PASSWORD}
+      KONG_CASSANDRA_CONTACT_POINTS: kong-database
+      KONG_PG_DATABASE: ${KONG_DB_NAME:-kong}
+    command: kong migrations bootstrap
+    restart: on-failure
+    networks:
+      mesx-net:
+        ipv4_address: ${KONG_MIGRATION_IP}
+    depends_on:
+      - kong-database
+
+  kong:
+    image: kong:2.8.1-alpine
+    container_name: ${KONG_CONTAINER_NAME}
+    environment:
+      LC_CTYPE: en_US.UTF-8
+      KONG_NGINX_PROXY_PROXY_IGNORE_CLIENT_ABORT: 'on'
+      LC_ALL: en_US.UTF-8
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: ${KONG_DB_DNS}
+      KONG_PG_DATABASE: ${KONG_DB_NAME:-kong}
+      KONG_PG_USER: ${KONG_DB_USERNAME}
+      KONG_PG_PASSWORD: ${KONG_DB_PASSWORD}
+      KONG_CASSANDRA_CONTACT_POINTS: kong-database
+      KONG_DNS_RESOLVER: ${CONSUL_DNS}:8600
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      # KONG_DECLARATIVE_CONFIG: "/opt/kong/kong.yaml"
+    ports:
+      - ${KONG_PROXY_PORT}:8000
+      # - 8443:8443
+      - ${KONG_ADMIN_PORT}:8001
+      # - 8444:8444
+    links:
+      - kong-database:kong-database
+    networks:
+      mesx-net:
+        ipv4_address: ${KONG_IP}
+    depends_on:
+      - kong-migrations
+    restart: on-failure:5
+
+  konga:
+    image: pantsel/konga
+    container_name: ${KONGA_CONTAINER_NAME}
+    ports:
+      - ${KONGA_PROXY}:1338
+    links:
+      - kong:kong
+    environment:
+      - NODE_ENV=develop
+      - TOKEN_SECRET=${KONGA_TOKEN_SECRET}
+    restart: always
+    depends_on:
+      - kong
+    networks:
+      mesx-net:
+        ipv4_address: ${KONGA_IP}
+
+  consul:
+    image: hashicorp/consul:1.12.0
+    container_name: ${CONSUL_CONTAINER_NAME}
+    restart: always
+    volumes:
+      - ./consul:/etc/consul.d
+    command: "agent --config-file  /etc/consul.d/consul.json"
+    networks:
+      mesx-net:
+        ipv4_address: ${CONSUL_DNS}
+    ports:
+      - ${CONSUL_ADMIN_PORT}:8500
+      - ${CONSUL_DNS_PORT}:8600/tcp
+      - ${CONSUL_DNS_PORT}:8600/udp
+
+  # Here we have six Redis containers with Cluster mode enabled,
+  # three of them will work as master nodes and each one of
+  # will have a replica, so in case of failures, the replica becomes the master.
+  # They are configured by the `cluster_initiator` container.
+  redis_cache:
+    image: 'redis:7.0-alpine'
+    container_name: ${REDIS_CACHE_CONTAINER_NAME}
+    ports:
+      - ${REDIS_CACHE_CONTAINER_PORT}:6379
+    volumes:
+      - redis_cache_data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    networks:
+      mesx-net:
+        ipv4_address: ${REDIS_CACHE_CONTAINER_IP}
+
+  # redis_2:
+  #   image: 'redis:7.0-alpine'
+  #   container_name: redis_2
+  #   ports:
+  #     - "6379"
+  #   volumes:
+  #     - redis_2_data:/data
+  #     - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+  #   command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+  #   networks:
+  #     mesx-net:
+  #       ipv4_address: ${REDIS_CACHE_C2_IP}
+
+  # redis_3:
+  #   image: 'redis:7.0-alpine'
+  #   container_name: redis_3
+  #   ports:
+  #     - "6379"
+  #   volumes:
+  #     - redis_3_data:/data
+  #     - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+  #   command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+  #   networks:
+  #     mesx-net:
+  #       ipv4_address: ${REDIS_CACHE_C3_IP}
+
+  # Ephemeral container to create the Redis cluster connections.
+  # Once the setup is done, this container shuts down
+  # and the cluster can be used by the service app container
+  # cluster_initiator:
+  #   container_name: cluster_initiator
+  #   build:
+  #     context: redis
+  #     dockerfile: Dockerfile
+  #   tty: true
+  #   depends_on:
+  #     - redis_1
+  #     - redis_2
+  #     - redis_3
+  #   networks:
+  #     mesx-net:
+  #       ipv4_address: ${REDIS_CACHE_CLUSTER_INIT_IP}
+  # Web UI to browse through our Redis data across all nodes
+  redis_commander:
+    image: rediscommander/redis-commander:latest
+    container_name: ${REDIS_COMMANDER_CONTAINER_NAME}
+    environment:
+      REDIS_HOSTS: "local:redis_cache:6379"
+      HTTP_USER: ${REDIS_COMMANDER_USER}
+      HTTP_PASSWORD: ${REDIS_COMMANDER_PASSWORD}
+    ports:
+      - ${REDIS_COMMANDER_CONTAINER_PORT}:8081
+    depends_on:
+      - redis_cache
+    networks:
+      mesx-net:
+        ipv4_address: ${REDIS_COMMANDER_CONTAINER_IP}
+volumes:
+  db-data-kong-postgres:
+  redis_cache_data: {}
+
+networks:
+  mesx-net:
+    driver: bridge
+    name: ${MESX_NET_NAME}
+
+    ipam:
+      config:
+        - subnet: ${MESX_SUBNET}
+          gateway: ${MESX_GATEWAY}
